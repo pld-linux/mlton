@@ -1,0 +1,22 @@
+--- mlton-20020426/Makefile~	2002-04-26 20:44:58.000000000 +0200
++++ mlton-20020426/Makefile	2002-06-09 13:20:50.000000000 +0200
+@@ -123,18 +123,10 @@
+ ULIB = /usr/local/lib/mlton
+ TLIB = $(PREFIX)$(ULIB)
+ TMAN = $(PREFIX)/usr/local/man/man1
+-TDOC = $(PREFIX)/usr/share/doc/mlton-$(VERSION)
+ 
+ .PHONY: install
+ install:
+-	mkdir -p $(TDOC) $(TLIB) $(TBIN) $(TMAN) &&			\
+-	(								\
+-		cd $(SRC)/doc &&					\
+-		$(CP) -r CHANGES cmcat.sml examples			\
+-			license README $(TDOC) &&			\
+-		mv user-guide/main $(TDOC)/HTML &&			\
+-		gzip -c user-guide/main.ps >$(TDOC)/user-guide.ps.gz	\
+-	) &&								\
++	mkdir -p $(TLIB) $(TBIN) $(TMAN) &&			\
+ 	( 								\
+ 		cd $(LIB) && $(CP) -r . $(TLIB) 			\
+ 	) &&								\
