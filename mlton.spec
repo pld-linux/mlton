@@ -8,7 +8,7 @@ Version:	20021122
 Release:	2
 License:	GPL
 Group:		Development/Languages
-Source0:	http://telia.dl.sourceforge.net/sourceforge/mlton/%{name}-%{version}-1.src.tgz
+Source0:	http://dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}-1.src.tgz
 # Source0-md5:	819274ea86202f0964d4edec8ba456b9
 Patch0:		%{name}-no-doc-install.patch
 URL:		http://www.mlton.org
