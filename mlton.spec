@@ -5,7 +5,7 @@ Summary:	An optimizing compiler for the Standard ML programming language
 Summary(pl):	Optymalizuj±cy kompilator dla jêzyka programowania Standard ML
 Name:		mlton
 Version:	20021122
-Release:	1
+Release:	2
 License:	GPL
 Group:		Development/Languages
 Source0:	http://telia.dl.sourceforge.net/sourceforge/mlton/%{name}-%{version}-1.src.tgz
@@ -55,10 +55,10 @@ done
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_examplesdir}
 
-perl -pi -e 's/-mcpu=.*/%{optflags}' bin/mlton
+perl -pi -e 's/-mcpu=.*/%{optflags}/' bin/mlton
 
 %{__make} install \
-	prefix=%{_prefix}
+	prefix=%{_prefix} \
 	TBIN=$RPM_BUILD_ROOT%{_bindir} \
 	TLIB=$RPM_BUILD_ROOT%{_libdir}/mlton \
 	TMAN=$RPM_BUILD_ROOT%{_mandir}/man1
@@ -78,5 +78,5 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/mlton/world.mlton
 %{_libdir}/mlton/hostmap
 %{_libdir}/mlton/self
-%{_mandir}/man*/*
+%{_mandir}/man1/*
 %{_examplesdir}/%{name}-%{version}
