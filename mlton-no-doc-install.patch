@@ -1,22 +1,50 @@
---- mlton-20020426/Makefile~	2002-04-26 20:44:58.000000000 +0200
-+++ mlton-20020426/Makefile	2002-06-09 13:20:50.000000000 +0200
-@@ -123,18 +123,10 @@
- ULIB = /usr/local/lib/mlton
- TLIB = $(PREFIX)$(ULIB)
- TMAN = $(PREFIX)/usr/local/man/man1
--TDOC = $(PREFIX)/usr/share/doc/mlton-$(VERSION)
+--- mlton-20021122/Makefile~	2003-01-26 23:17:19.000000000 +0100
++++ mlton-20021122/Makefile	2003-01-26 23:18:35.000000000 +0100
+@@ -196,23 +196,10 @@
+ ULIB = lib/mlton
+ TLIB = $(DESTDIR)$(prefix)/$(ULIB)
+ TMAN = $(DESTDIR)$(prefix)$(MAN_PREFIX_EXTRA)/man/man1
+-TDOC = $(DESTDIR)$(prefix)/share/doc/mlton
  
  .PHONY: install
  install:
--	mkdir -p $(TDOC) $(TLIB) $(TBIN) $(TMAN) &&			\
--	(								\
--		cd $(SRC)/doc &&					\
--		$(CP) -r CHANGES cmcat.sml examples			\
--			license README $(TDOC) &&			\
--		mv user-guide/main $(TDOC)/HTML &&			\
--		gzip -c user-guide/main.ps >$(TDOC)/user-guide.ps.gz	\
--	) &&								\
-+	mkdir -p $(TLIB) $(TBIN) $(TMAN) &&			\
- 	( 								\
- 		cd $(LIB) && $(CP) -r . $(TLIB) 			\
- 	) &&								\
+-	mkdir -p $(TDOC) $(TLIB) $(TBIN) $(TMAN)
+-	(									\
+-		cd $(SRC)/doc &&						\
+-		$(CP) changelog cmcat.sml examples license README $(TDOC)/	\
+-	)
+-	rm -rf $(TDOC)/user-guide
+-	$(CP) $(SRC)/doc/user-guide/main $(TDOC)/user-guide
+-	$(GZIP) -c $(SRC)/doc/user-guide/main.ps >$(TDOC)/user-guide.ps.gz
+-	for f in callcc command-line hello-world same-fringe signals size taut thread1 thread2 thread-switch timeout; do \
+- 		$(CP) $(SRC)/regression/$$f.sml $(TDOC)/examples; \
+-	done
+-	$(GZIP) -c $(LEX)/$(LEX).ps >$(TDOC)/$(LEX).ps.gz
+-	$(GZIP) -c $(YACC)/$(YACC).ps >$(TDOC)/$(YACC).ps.gz
++	mkdir -p $(TLIB) $(TBIN) $(TMAN)
+ 	$(CP) $(LIB)/. $(TLIB)/
+ 	sed "/^lib=/s;'.*';'$(prefix)/$(ULIB)';" 			\
+ 			<$(SRC)/bin/mlton >$(TBIN)/mlton
+@@ -221,22 +208,7 @@
+ 	( cd $(SRC)/man && tar cf - mllex.1 mlprof.1 mlton.1 mlyacc.1 ) | \
+ 		( cd $(TMAN)/ && tar xf - )
+ 	cd $(TMAN) && $(GZIP) *
+-	find $(TDOC)/ -name CVS -type d | xargs --no-run-if-empty rm -rf
+-	find $(TDOC)/ -name .cvsignore -type f | xargs --no-run-if-empty rm -rf
+ 	for f in $(TLIB)/$(AOUT) \
+ 		$(TBIN)/$(LEX) $(TBIN)/$(PROF) $(TBIN)/$(YACC); do \
+ 		strip --remove-section=.comment --remove-section=.note $$f; \
+ 	done
+-
+-TDOCBASE = $(DESTDIR)$(prefix)/share/doc-base
+-
+-.PHONY: post-install-debian
+-post-install-debian:	
+-	cd $(TDOC)/ && rm -rf license
+-	$(CP) $(SRC)/debian/copyright $(SRC)/debian/README.Debian $(TDOC)/
+-	$(CP) $(SRC)/debian/changelog $(TDOC)/changelog.Debian
+-	mkdir -p $(TDOCBASE)
+-	for f in mllex mlton mlyacc; do \
+-		$(CP) $(SRC)/debian/$$f.doc-base $(TDOCBASE)/$$f; \
+-	done
+-	cd $(TDOC)/ && $(GZIP) changelog changelog.Debian
