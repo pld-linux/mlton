@@ -17,6 +17,7 @@ BuildRequires:	mlton
 # gmp library is needed for linking with itself
 # it will _not_ be resolved by rpm requires searching automate
 Requires:	gmp >= 3.1.1
+Requires:	gcc
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -38,12 +39,13 @@ tak dobry, jak gcc.
 # and second time with the just compiled one
 %{__make} bootstrap \
 	VERSION=%{version} \
-	CC="%{__cc} %{rpmcflags}" \
+	CC="%{__cc} -I. %{rpmcflags}" \
 	CFLAGS="-DNODEBUG"
 
 for n in hacker library style user; do
 	guide="$n-guide"
 	cd doc/$guide
+	make main.ps main/main.html
 	mv main.ps $guide.ps
 	mv main $guide
 	cd -
@@ -51,6 +53,7 @@ done
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_examplesdir}
 
 perl -pi -e 's/-mcpu=.*/%{optflags}' bin/mlton
 
@@ -60,7 +63,6 @@ perl -pi -e 's/-mcpu=.*/%{optflags}' bin/mlton
 	TLIB=$RPM_BUILD_ROOT%{_libdir}/mlton \
 	TMAN=$RPM_BUILD_ROOT%{_mandir}/man1
 
-install -d $RPM_BUILD_ROOT%{_examplesdir}
 cp -a doc/examples $RPM_BUILD_ROOT%{_examplesdir}/%{name}-%{version}
 
 %clean
