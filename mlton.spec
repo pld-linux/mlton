@@ -2,7 +2,7 @@
 # don't even try do build it (or you would kill your machine with swapping)
 
 Summary:	An optimizing compiler for the Standard ML programming language
-Summary(pl):	Optymalizuj±cy kompilator dla jêzyka programowania Standard ML
+Summary(pl.UTF-8):   OptymalizujÄ…cy kompilator dla jÄ™zyka programowania Standard ML
 Name:		mlton
 Version:	20021122
 Release:	2
@@ -26,9 +26,9 @@ MLton is a whole-program optimizing compiler for the Standard ML
 programming language. It produces very fast code, almost comparable
 to gcc.
 
-%description -l pl
-MLton jest optimalizuj±cym kompilatorem dla jêzyka programowania Standard ML
-kompiluj±cym ca³y program na raz. MLton produkuje bardzo szybki kod, prawie
+%description -l pl.UTF-8
+MLton jest optimalizujÄ…cym kompilatorem dla jÄ™zyka programowania Standard ML
+kompilujÄ…cym caÅ‚y program na raz. MLton produkuje bardzo szybki kod, prawie
 tak dobry, jak gcc.
 
 %prep
