@@ -2,7 +2,7 @@
 # don't even try do build it (or you would kill your machine with swapping)
 
 Summary:	An optimizing compiler for the Standard ML programming language
-Summary(pl.UTF-8):   Optymalizujący kompilator dla języka programowania Standard ML
+Summary(pl.UTF-8):	Optymalizujący kompilator dla języka programowania Standard ML
 Name:		mlton
 Version:	20021122
 Release:	2
