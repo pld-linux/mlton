@@ -33,7 +33,7 @@ tak dobry, jak gcc.
 
 %prep
 %setup -q
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 # it will compile mlton twice: first time with installed mlton
